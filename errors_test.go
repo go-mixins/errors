@@ -18,6 +18,13 @@ func Test_NewClass(t *testing.T) {
 	}
 }
 
+func TestNew(t *testing.T) {
+	err := errors.New("simple error")
+	if _, ok := err.(error); !ok {
+		t.Errorf("%v should implement error interface", err)
+	}
+}
+
 func TestClass_Contains(t *testing.T) {
 	root := errors.NewClass("root")
 	leaf := errors.NewClass("root", "leaf")
