@@ -72,8 +72,8 @@ func NewClass(path ...string) Class {
 	return root.Sub(path...)
 }
 
-// Cause is provided for compatibility with "github.com/pkg/errors" package and
-// simply calls the original errors.Cause function
+// Cause is provided for compatibility with "github.com/pkg/errors" package.
+// It simply calls the original errors.Cause function
 func Cause(err error) error {
 	return errors.Cause(err)
 }
@@ -81,6 +81,24 @@ func Cause(err error) error {
 // New is provided for compatibility with the standard Go "errors" package
 func New(message string) error {
 	return root.New(message)
+}
+
+// Wrap is provided for compatibility with "github.com/pkg/errors" package.
+// It wraps error into empty root class
+func Wrap(err error, message string) error {
+	return root.Wrap(err, message)
+}
+
+// Wrapf is provided for compatibility with "github.com/pkg/errors" package.
+// It wraps error into empty root class
+func Wrapf(err error, format string, args ...interface{}) error {
+	return root.Wrapf(err, format, args...)
+}
+
+// Errorf is provided for compatibility with "github.com/pkg/errors" package.
+// It returns an error formatted against supplied format in empty root class.
+func Errorf(format string, args ...interface{}) error {
+	return root.Errorf(format, args...)
 }
 
 // Sub creates subpath in the class hierarchy

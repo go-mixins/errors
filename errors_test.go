@@ -18,8 +18,20 @@ func Test_NewClass(t *testing.T) {
 	}
 }
 
-func TestNew(t *testing.T) {
+func Test_New_Wrap_Wrapf_Errorf(t *testing.T) {
 	err := errors.New("simple error")
+	if _, ok := err.(error); !ok {
+		t.Errorf("%q should implement error interface", err)
+	}
+	err = errors.Errorf("simple error %d", 1)
+	if _, ok := err.(error); !ok {
+		t.Errorf("%q should implement error interface", err)
+	}
+	err = errors.Wrap(errs.New("simple error 2"), "wrapped in root")
+	if _, ok := err.(error); !ok {
+		t.Errorf("%q should implement error interface", err)
+	}
+	err = errors.Wrapf(errs.New("simple error 3"), "wrapped in %s", "root")
 	if _, ok := err.(error); !ok {
 		t.Errorf("%q should implement error interface", err)
 	}
