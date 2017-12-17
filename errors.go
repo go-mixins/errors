@@ -1,3 +1,37 @@
+// Package errors is a simple wrapper around excellent "github.com/pkg/errors"
+// package by Dave Cheney.
+//
+// It add a notion of "error class" that is simply chain of strings. Functions
+// and methods are provided to mark the error with such a chain.
+//
+// The error is said to belong to a certain class if the class chain
+// prefix-matches error's chain. The typical workflow is something like:
+//
+// import "github.com/go-mixins/errors"
+//
+// HTTPErrors := errors.NewClass("http") // A general "HTTP" error class
+//
+// FatalErrors := HTTPErrors.Sub("fatal") // Specific "bad" subclass
+//
+//
+// func makeRequest() error {
+//     result, err := http.Do(request)
+//     err = HTTPErrors.Wrap(err, "requesting service") // return error of class HTTPError if not nil
+//     return result, err
+// }
+//
+// func main() {
+//     ...
+//     err := makeRequest()
+//     switch {
+//            case FatalErrors.Contains(err):
+//                    panic(err) // error belongs to the Fatal class
+//            case HTTPErrors.Contains(err):
+//                log.Printf("%+v", err) // just some HTTP error
+//     }
+//     ...
+// }
+//
 package errors
 
 import (
