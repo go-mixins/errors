@@ -35,6 +35,12 @@ func Test_New_Wrap_Wrapf_Errorf(t *testing.T) {
 	if _, ok := err.(error); !ok {
 		t.Errorf("%q should implement error interface", err)
 	}
+	if err = errors.Wrap(nil, "wrapped nil"); err != nil {
+		t.Errorf("%q should be nil", err)
+	}
+	if err = errors.Wrapf(nil, "wrapped nil in %s", "root"); err != nil {
+		t.Errorf("%q should be nil", err)
+	}
 }
 
 func TestClass_Contains(t *testing.T) {
@@ -93,5 +99,11 @@ func TestClass_New_Errorf_Wrap_Wrapf(t *testing.T) {
 	err = c1.Wrapf(errs.New("root error"), "wrapped %d", 3)
 	if !c1.Contains(err) {
 		t.Errorf("%q should belong to %q", err, c1)
+	}
+	if err = c1.Wrap(nil, "wrapped nil"); err != nil {
+		t.Errorf("%q should be nil", err)
+	}
+	if err = c1.Wrapf(nil, "wrapped nil in %q", c1); err != nil {
+		t.Errorf("%q should be nil", err)
 	}
 }
