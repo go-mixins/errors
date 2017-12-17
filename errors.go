@@ -17,7 +17,7 @@ type Error struct {
 }
 
 func (ec Error) Error() string {
-	return strings.Join(ec.class, ": ") + ": " + ec.error.Error()
+	return ec.class.String() + ": " + ec.error.Error()
 }
 
 // Cause returns the underlying error
@@ -58,7 +58,7 @@ func (c Class) Sub(path ...string) (res Class) {
 }
 
 func (c Class) String() string {
-	return strings.Join(c, "/")
+	return strings.Join(c, ".")
 }
 
 // Is returns true if the class belongs to specific parent class
